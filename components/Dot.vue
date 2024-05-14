@@ -1,5 +1,5 @@
 <template>
-    <div :class="{'dot': true, 'used': this.used}"></div>
+    <div :class="{'dot': true, 'used': used}"></div>
 </template>
 
 <script>
