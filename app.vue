@@ -88,8 +88,6 @@ export default {
       if (this.guesses == 0) {
         this.alertText = "You are out of gueses"
         this.alertVisable = true;
-        this.showCorrect = true
-        this.labelForView = "View Your Results"
         setTimeout(() => { this.alertVisable = false }, 2000)
         this.selected = {}
         return
@@ -107,8 +105,6 @@ export default {
           this.alertText = "You are out of gueses"
           this.alertVisable = true;
           setTimeout(() => { this.alertVisable = false }, 2000)
-          this.showCorrect = true
-          this.labelForView = "View Your Results"
           this.selected = {}
         } else if (count == 3) {
           this.alertText = "One away"
