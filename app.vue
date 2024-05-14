@@ -24,15 +24,15 @@ export default {
   name: "app",
   data() {
     return {
-        boxes: {"Larping": 1, "Autism": 2, "Stella": 2, "Food": 1,
-                "Mew": 2, "Rich": 3, "Goat": 4, "Fruit": 4,
-                "Stinky": 3, "Less Autism": 4, "Vaping": 1, "Rapist": 3,
-                "Biking": 1, "Woodland": 4, "Dirt Bike": 2, "Cheater": 3
+        boxes: {"bannanas": 1, "shave": 2, "sideburns": 2, "great white": 1,
+                "jawline": 2, "Autism": 3, "rat": 4, "long nails": 4,
+                "Snowstorm": 3, "Smelly": 4, "Mew": 1, "Nascar": 3,
+                "Baseball": 1, "sewage": 4, "Dirtbike": 2, "Vertabrae": 3
         },
         selected: {},
         guesses: 4,
         connections: [],
-        categories: {'con1': "Fin", 'con2': "Emmett", 'con3': "Ked", 'con4': "Nick"}
+        categories: {'con1': "Griffin", 'con2': "Emmett", 'con3': "joshua brady", 'con4': "Riley"}
       }
   },
   methods: {
