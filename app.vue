@@ -6,6 +6,9 @@
     <div class="boxes">
       <Box v-for="(value, key) in boxes" :key="key" :disabled="disabledBoxes" :label="key" :selectedList="selected" @box-clicked="handleBoxClicked" />
     </div>
+    <div class="alert">
+      <Alert v-show="alertVisable" :message="alertText" />
+    </div>
     <div class="mistakes">
       <Mistakes :guesses="guesses"/>
     </div>
@@ -24,15 +27,17 @@ export default {
   name: "app",
   data() {
     return {
-        boxes: {"bannanas": 1, "shave": 2, "sideburns": 2, "great white": 1,
-                "jawline": 2, "Autism": 3, "rat": 4, "long nails": 4,
-                "Snowstorm": 3, "Smelly": 4, "Mew": 1, "Nascar": 3,
-                "Baseball": 1, "sewage": 4, "Dirtbike": 2, "Vertabrae": 3
+        boxes: {"Mercury": 1, "Athena": 4, "Einstein": 3, "Saturn": 1,
+                "Newton": 3, "Hydrogen": 2, "Zeus": 4, "Mars": 1,
+                "Carbon": 2, "Poseidon": 4, "Nitrogen": 2, "Oxygen": 2,
+                "Galileo": 3, "Jupiter": 1, "Curie": 3, "Apollo": 4
         },
         selected: {},
         guesses: 4,
         connections: [],
-        categories: {'con1': "Griffin", 'con2': "Emmett", 'con3': "joshua brady", 'con4': "Riley"}
+        categories: {'con1': "Planets", 'con2': "Elements", 'con3': "Famous Scientists", 'con4': "Greek Mythology"},
+        alertVisable: false,
+        alertText: ""
       }
   },
   methods: {
@@ -72,20 +77,36 @@ export default {
 
     submit() {
       if (this.guesses == 0) {
-        alert("You have ran out of guesses")
+        this.alertText = "You are out of gueses"
+        this.alertVisable = true;
+        setTimeout(() => { this.alertVisable = false }, 2000)
         this.selected = {}
         return
       }
       var startValue = Object.entries(this.selected)[0][1];
+      var count = 0;
       for (const [key, value] of Object.entries(this.selected)) {
-        if(value != startValue) {
-          this.guesses--;
-          if (this.guesses == 0) {
-            alert("You have ran out of guesses")
-            this.selected = {}
-          }
-          return false;
+        if(value == startValue) {
+          count++
         }
+      }
+      if(count != 4) {
+        this.guesses--;
+        if (this.guesses == 0) {
+          this.alertText = "You are out of gueses"
+          this.alertVisable = true;
+          setTimeout(() => { this.alertVisable = false }, 2000)
+          this.selected = {}
+        } else if (count == 3) {
+          this.alertText = "One away"
+          this.alertVisable = true;
+          setTimeout(() => { this.alertVisable = false }, 2000)
+        } else {
+          this.alertText = "Incorrect"
+          this.alertVisable = true;
+          setTimeout(() => { this.alertVisable = false }, 2000)
+        }
+        return false;
       }
       var connection = {};
       for (const [key, value] of Object.entries(this.selected)) {
@@ -94,6 +115,9 @@ export default {
       }
       this.connections.push(connection);
       this.selected = {};
+      this.alertText = "Correct!"
+      this.alertVisable = true;
+      setTimeout(() => { this.alertVisable = false }, 2000)
       return true;
     },
 
@@ -120,7 +144,7 @@ export default {
         case 3: return this.categories.con3;
         case 4: return this.categories.con4
       }
-    }
+    },
   },
   computed: {
     disabledDeselect() {
@@ -171,10 +195,6 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center
-}
-
-.mistakes {
-  margin-top: 2rem
 }
 
 </style>
