@@ -2,10 +2,10 @@
     <div class="mistakes-remaining">
         <p>Mistakes remaining: </p>
         <div v-for="guess in getGuesses()">
-            <Dot />
+            <Dot :used="false"/>
         </div>
         <div v-for="guess in getGuessesUsed()">
-            <Dot used="true"/>
+            <Dot :used="true"/>
         </div>
     </div>
 </template>
