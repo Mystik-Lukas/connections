@@ -1,9 +1,12 @@
 <template>
   <div class="app">
-    <div class="correct-boxes">
+    <div class="correct-boxes" v-show="!showCorrect">
       <CorrectBox v-for="(connection, index) in connections" :theme="theme(connection)" :key="index" :color="correctBoxColor(connection)" :wordValues="getWordValuePairs(connection)" />
     </div>
-    <div class="boxes">
+    <div class="correct-boxes" v-show="showCorrect">
+      <CorrectBox v-for="(connection, index) in correctConnections" :theme="theme(connection)" :key="index" :color="correctBoxColor(connection)" :wordValues="getWordValuePairs(connection)" />
+    </div>
+    <div class="boxes" v-show="!showCorrect">
       <Box v-for="(value, key) in boxes" :key="key" :disabled="disabledBoxes" :label="key" :selectedList="selected" @box-clicked="handleBoxClicked" />
     </div>
     <div class="alert">
@@ -17,6 +20,9 @@
       <Button label="Deselect" :disabled="disabledDeselect" @click="deselect"/>
       <Button label="Submit" :disabled="disabledSubmit" @click="submit"/>
     </div>
+    <div class="view-answers">
+      <Button :label="labelForView" :disabled="false" v-show="guesses == 0" @click="showCorrectToggle"/>
+    </div>
   </div>
 </template>
 
@@ -27,17 +33,20 @@ export default {
   name: "app",
   data() {
     return {
-        boxes: {"Mercury": 1, "Athena": 4, "Einstein": 3, "Saturn": 1,
-                "Newton": 3, "Hydrogen": 2, "Zeus": 4, "Mars": 1,
-                "Carbon": 2, "Poseidon": 4, "Nitrogen": 2, "Oxygen": 2,
-                "Galileo": 3, "Jupiter": 1, "Curie": 3, "Apollo": 4
+        boxes: {"Gold": 1, "Copper": 1, "Platinum": 1, "Iron": 1,
+                "Crimson": 2, "Azure": 2, "Ivory": 2, "Indigo": 2,
+                "Silk": 3, "Velvet": 3, "Leather": 3, "Wool": 3,
+                "Diamond": 4, "Ruby": 4, "Emerald": 4, "Sapphire": 4
         },
+        correctConnections: [],
         selected: {},
         guesses: 4,
         connections: [],
-        categories: {'con1': "Planets", 'con2': "Elements", 'con3': "Famous Scientists", 'con4': "Greek Mythology"},
+        categories: {'con1': "Elements", 'con2': "Colors", 'con3': "Materials", 'con4': "Precious Stones"},
         alertVisable: false,
-        alertText: ""
+        alertText: "",
+        labelForView: "View Correct Answers",
+        showCorrect: false
       }
   },
   methods: {
@@ -79,6 +88,8 @@ export default {
       if (this.guesses == 0) {
         this.alertText = "You are out of gueses"
         this.alertVisable = true;
+        this.showCorrect = true
+        this.labelForView = "View Your Results"
         setTimeout(() => { this.alertVisable = false }, 2000)
         this.selected = {}
         return
@@ -96,6 +107,8 @@ export default {
           this.alertText = "You are out of gueses"
           this.alertVisable = true;
           setTimeout(() => { this.alertVisable = false }, 2000)
+          this.showCorrect = true
+          this.labelForView = "View Your Results"
           this.selected = {}
         } else if (count == 3) {
           this.alertText = "One away"
@@ -122,7 +135,6 @@ export default {
     },
 
     getWordValuePairs(connection) {
-      console.log(Object.entries(connection).map(([word, value]) => ({ word, value })))
       return Object.entries(connection).map(([word, value]) => ({ word, value }));
     },
 
@@ -145,6 +157,15 @@ export default {
         case 4: return this.categories.con4
       }
     },
+
+    showCorrectToggle() {
+      if (this.labelForView == "View Correct Answers") {
+        this.labelForView = "View Your Results"
+      } else {
+        this.labelForView = "View Correct Answers"
+      }
+      this.showCorrect = !this.showCorrect
+    }
   },
   computed: {
     disabledDeselect() {
@@ -160,6 +181,31 @@ export default {
     disabledBoxes() {
       return this.guesses == 0;
     }
+  },
+  created() {
+    var connection1 = {};
+      for (const [key, value] of Object.entries(this.boxes).slice(0,4)) {
+        connection1[key] = value;
+      }
+    var connection2 = {};
+      for (const [key, value] of Object.entries(this.boxes).slice(4,8)) {
+        connection2[key] = value;
+    }
+    var connection3 = {};
+      for (const [key, value] of Object.entries(this.boxes).slice(8,12)) {
+        connection3[key] = value;
+    }
+    var connection4 = {};
+      for (const [key, value] of Object.entries(this.boxes).slice(12,16)) {
+        connection4[key] = value;
+    }
+    this.correctConnections.push(connection1)
+    this.correctConnections.push(connection2)
+    this.correctConnections.push(connection3)
+    this.correctConnections.push(connection4)
+  },
+  mounted() {
+    this.shuffle()
   }
 
 };
@@ -195,6 +241,11 @@ export default {
   flex-direction: row;
   align-items: center;
   justify-content: center
+}
+
+.view-answers {
+  width: fit-content;
+  margin: 1rem auto
 }
 
 </style>

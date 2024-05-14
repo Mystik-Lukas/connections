@@ -36,23 +36,23 @@ font-size: 1rem;
 }
 
 .blue {
-    background-color: rgb(51, 129, 255);
-    color: white
+    background-color: rgb(89, 206, 255);
+    /* color: black */
 }
 
 .red {
-    background-color: rgb(255, 51, 51);
-    color: white
+    background-color: rgba(255, 4, 4, 0.8);
+    /* color: black */
 }
 
 .green {
-    background-color: rgb(76, 218, 76);
-    color: white
+    background-color: rgb(98, 255, 98);
+    /* color: black */
 }
 
 .yellow {
-    background-color: yellow;
-    color: black
+    background-color: rgb(255, 255, 49);
+    /* color: black */
 }
 
 .theme {
