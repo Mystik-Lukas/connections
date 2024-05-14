@@ -24,15 +24,15 @@ export default {
   name: "app",
   data() {
     return {
-        boxes: {"Tree": 1, "Red": 2, "Folk": 3, "Yellow": 2,
-                "Blue": 2, "Rap": 3, "Jazz": 3, "Sapling": 1,
-                "Country": 3, "Forest": 1, "Simple": 4, "Light": 4,
-                "Leaf": 1, "Easy": 4, "Green": 2, "Calm": 4
+        boxes: {"Larping": 1, "Autism": 2, "Stella": 2, "Food": 1,
+                "Mew": 2, "Rich": 3, "Goat": 4, "Fruit": 4,
+                "Stinky": 3, "Less Autism": 4, "Vaping": 1, "Rapist": 3,
+                "Biking": 1, "Woodland": 4, "Dirt Bike": 2, "Cheater": 3
         },
         selected: {},
         guesses: 4,
         connections: [],
-        categories: {'con1': "Green", 'con2': "Colors", 'con3': "Music genre", 'con4': "An adjective for something that isn't hard"}
+        categories: {'con1': "Fin", 'con2': "Emmett", 'con3': "Ked", 'con4': "Nick"}
       }
   },
   methods: {
