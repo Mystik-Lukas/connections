@@ -10,6 +10,8 @@
     "postinstall": "nuxt prepare"
   },
   "dependencies": {
+    "@fortawesome/vue-fontawesome": "^3.0.6",
+    "@nuxtjs/fontawesome": "^1.1.2",
     "nuxt": "^3.11.2",
     "openai": "^4.47.1",
     "vue": "^3.4.27",

@@ -56,7 +56,8 @@ export default {
         justify-content: center;
         border-radius: 12px;
         cursor:pointer;
-        font-size: .9rem
+        font-size: .9rem;
+        font-weight: 600
     }
 
     p {

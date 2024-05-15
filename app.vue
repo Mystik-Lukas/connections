@@ -23,6 +23,8 @@
     <div class="view-answers">
       <Button :label="labelForView" :disabled="false" v-show="guesses == 0" @click="showCorrectToggle"/>
     </div>
+    <!-- <button class="refresh" @click="regen">New game</button> -->
+    <Button class="regen" label="New game" :disabled="false" @click="regen"/>
   </div>
 </template>
 
@@ -159,6 +161,10 @@ export default {
         this.labelForView = "View Correct Answers"
       }
       this.showCorrect = !this.showCorrect
+    },
+
+    regen() {
+      this.$router.go()
     }
   },
   computed: {
@@ -246,7 +252,8 @@ export default {
   margin-left: auto;
   margin-right: auto;
   gap: .5rem;
-  padding: 2rem
+  padding: 2rem;
+  position: relative
 }
 
 .buttons {
@@ -259,6 +266,23 @@ export default {
 .view-answers {
   width: fit-content;
   margin: 1rem auto
+}
+
+/* .refresh {
+  position: absolute;
+  border: none;
+  background: none;
+  font-size: 1rem;
+  top: 7.5px;
+  cursor:pointer;
+  font-weight: 600;
+  color: #4D4D4D;
+  left: 45px
+} */
+
+.regen {
+  width: fit-content;
+  margin: 0 auto !important
 }
 
 </style>
