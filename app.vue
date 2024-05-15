@@ -27,26 +27,23 @@
 </template>
 
 <script>
-import Box from './components/Box.vue';
+import OpenAI from "openai";
+import connectionsData from './connections.json';
 
 export default {
   name: "app",
   data() {
     return {
-        boxes: {"Gold": 1, "Copper": 1, "Platinum": 1, "Iron": 1,
-                "Crimson": 2, "Azure": 2, "Ivory": 2, "Indigo": 2,
-                "Silk": 3, "Velvet": 3, "Leather": 3, "Wool": 3,
-                "Diamond": 4, "Ruby": 4, "Emerald": 4, "Sapphire": 4
-        },
+        boxes: {},
         correctConnections: [],
         selected: {},
         guesses: 4,
         connections: [],
-        categories: {'con1': "Elements", 'con2': "Colors", 'con3': "Materials", 'con4': "Precious Stones"},
+        categories: {},
         alertVisable: false,
         alertText: "",
         labelForView: "View Correct Answers",
-        showCorrect: false
+        showCorrect: false,
       }
   },
   methods: {
@@ -179,6 +176,24 @@ export default {
     }
   },
   created() {
+    if (process.client) {
+      const randomConnection = connectionsData[Math.floor(Math.random() * connectionsData.length)].answers
+      for (let i = 0; i < 4; i++) {
+        let group = randomConnection[i]
+        let level = group.level + 1
+        let theme = group.group
+
+        for (let a = 0; a < 4; a++) {
+          this.boxes[group.members[a]] = level
+        }  
+      }
+
+      this.categories['con1'] = randomConnection[0].group
+      this.categories['con2'] = randomConnection[1].group
+      this.categories['con3'] = randomConnection[2].group
+      this.categories['con4'] = randomConnection[3].group
+    }
+
     var connection1 = {};
       for (const [key, value] of Object.entries(this.boxes).slice(0,4)) {
         connection1[key] = value;
@@ -202,7 +217,7 @@ export default {
   },
   mounted() {
     this.shuffle()
-  }
+  },
 
 };
 </script>
