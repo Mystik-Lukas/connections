@@ -55,7 +55,8 @@ export default {
         align-items: center;
         justify-content: center;
         border-radius: 12px;
-        cursor:pointer
+        cursor:pointer;
+        font-size: .9rem
     }
 
     p {

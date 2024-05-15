@@ -44,6 +44,7 @@ export default {
         alertText: "",
         labelForView: "View Correct Answers",
         showCorrect: false,
+        finished: false
       }
   },
   methods: {
@@ -175,16 +176,16 @@ export default {
       return this.guesses == 0;
     }
   },
-  created() {
-    if (process.client) {
-      const randomConnection = connectionsData[Math.floor(Math.random() * connectionsData.length)].answers
-      for (let i = 0; i < 4; i++) {
-        let group = randomConnection[i]
-        let level = group.level + 1
-        let theme = group.group
+  async created() {
+    const randomConnection = connectionsData[Math.floor(Math.random() * connectionsData.length)].answers
+    for (let i = 0; i < 4; i++) {
+      let group = randomConnection[i];
+      if (group) { // Check if group is defined
+        let level = group.level + 1;
+        let theme = group.group;
 
         for (let a = 0; a < 4; a++) {
-          this.boxes[group.members[a]] = level
+          this.boxes[group.members[a]] = level;
         }  
       }
 
@@ -192,6 +193,7 @@ export default {
       this.categories['con2'] = randomConnection[1].group
       this.categories['con3'] = randomConnection[2].group
       this.categories['con4'] = randomConnection[3].group
+      this.finished = true
     }
 
     var connection1 = {};
